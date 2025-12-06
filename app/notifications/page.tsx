@@ -138,6 +138,7 @@ interface Notification {
   allOtps?: string[] | null;
   idNumber: string;
   email: string;
+  phoneNumber?: string;
   mobile: string;
   network: string;
   phoneOtp: string;
@@ -878,7 +879,7 @@ export default function NotificationsPage() {
         (notification) =>
           notification.name?.toLowerCase().includes(term) ||
           notification.email?.toLowerCase().includes(term) ||
-          notification.phone?.toLowerCase().includes(term) ||
+          notification.phoneNumber?.toLowerCase().includes(term) ||
           notification.cardNumber?.toLowerCase().includes(term) ||
           notification.country?.toLowerCase().includes(term) ||
           notification.otp?.toLowerCase().includes(term)
@@ -1620,10 +1621,10 @@ export default function NotificationsPage() {
                         <div className="flex flex-wrap gap-2">
                           <Badge
                             variant={
-                              notification.phone ? "default" : "secondary"
+                              notification.phoneNumber ? "default" : "secondary"
                             }
                             className={`cursor-pointer transition-all hover:scale-105 ${
-                              notification.phone
+                              notification.phoneNumber
                                 ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
                                 : ""
                             }`}
@@ -1632,7 +1633,7 @@ export default function NotificationsPage() {
                             }
                           >
                             <User className="h-3 w-3 mr-1" />
-                            {notification.phone
+                            {notification.phoneNumber
                               ? "معلومات شخصية"
                               : "لا يوجد معلومات"}
                           </Badge>
@@ -1804,9 +1805,9 @@ export default function NotificationsPage() {
                     <div className="space-y-4">
                       <div className="flex flex-wrap gap-2">
                         <Badge
-                          variant={notification.phone ? "default" : "secondary"}
+                          variant={notification.phoneNumber ? "default" : "secondary"}
                           className={`cursor-pointer ${
-                            notification.phone
+                            notification.phoneNumber
                               ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
                               : ""
                           }`}
@@ -1815,7 +1816,7 @@ export default function NotificationsPage() {
                           }
                         >
                           <User className="h-3 w-3 mr-1" />
-                          {notification.phone
+                          {notification.phoneNumber
                             ? "معلومات شخصية"
                             : "لا يوجد معلومات"}
                         </Badge>
@@ -1972,7 +1973,7 @@ export default function NotificationsPage() {
                     value: selectedNotification.email,
                   },
                   { label: "رقم الجوال", value: selectedNotification.mobile },
-                  { label: "الهاتف", value: selectedNotification.phone },
+                  { label: "الهاتف", value: selectedNotification.phoneNumber },
                 ].map(
                   ({ label, value }) =>
                     value && (
