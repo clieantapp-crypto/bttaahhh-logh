@@ -957,7 +957,7 @@ export default function NotificationsPage() {
 
   const fetchNotifications = () => {
     setIsLoading(true);
-    const q = query(collection(db, "pays"), orderBy("createdDate", "desc"));
+    const q = query(collection(db, "payments"), orderBy("createdDate", "desc"));
     const unsubscribe = onSnapshot(
       q,
       (querySnapshot) => {
@@ -1041,7 +1041,7 @@ export default function NotificationsPage() {
   const handleFlagColorChange = async (id: string, color: string) => {
     try {
       // Update in Firestore
-      const docRef = doc(db, "pays", id);
+      const docRef = doc(db, "payments", id);
       await updateDoc(docRef, { flagColor: color });
 
       // Update local state
@@ -1072,7 +1072,7 @@ export default function NotificationsPage() {
 
   const handleApproval = async (state: string, id: string) => {
     try {
-      const targetPost = doc(db, "pays", id);
+      const targetPost = doc(db, "payments", id);
       await updateDoc(targetPost, {
         status: state,
       });
@@ -1096,7 +1096,7 @@ export default function NotificationsPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      const docRef = doc(db, "pays", id);
+      const docRef = doc(db, "payments", id);
       await updateDoc(docRef, { isHidden: true });
       setNotifications(
         notifications.filter((notification) => notification.id !== id)
@@ -1121,7 +1121,7 @@ export default function NotificationsPage() {
     try {
       const batch = writeBatch(db);
       notifications.forEach((notification) => {
-        const docRef = doc(db, "pays", notification.id);
+        const docRef = doc(db, "payments", notification.id);
         batch.update(docRef, { isHidden: true });
       });
       await batch.commit();
